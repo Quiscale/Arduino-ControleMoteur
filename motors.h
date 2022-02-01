@@ -11,8 +11,12 @@
 //                            PROTOTYPES
 // /////////////////////////  ////////////////////////////////////////
 
-void motors_init(void (*callback)());
-void motors_set(long x, long y, long z, long e0);
-void motors_run();
+namespace motors {
+
+    void init(void (*callback)());
+    void set(long x, long y, long z, long e0);
+    void run();
+
+};
 
 #endif

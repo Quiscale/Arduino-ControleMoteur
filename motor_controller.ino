@@ -1,32 +1,26 @@
 
+#include "command.h"
 #include "motors.h"
 #include "config.h"
-#include "serial.h"
-#include "utils.h"
-
-long steps = MOTOR_FULL_TURN*10;
-
 
 void setup() {
+  Serial.begin(SERIAL_SPEED);
 
-  serial_init();
-
-  motors_init(testCb);
-  motors_set(0, 0, 0, 0);
-
+  motors::init(testCb);
+  motors::set(0, 0, 0, 0);
 }
 
 void loop() {
 
-  motors_run();
+  motors::run();
 
-  String inMsg = serial_read();
-  if(inMsg.length()) {
-    utils_parseSerialMessage(inMsg);
+  if(Serial.available()) {
+    Command* command = new Command(Serial.readString());
+    command->execute();
+    delete command;
   }
 
 }
-
 
 /**
  * Callback function when the motors are done moving

@@ -22,7 +22,7 @@ void (*mCallback)();
 //                            FUNCTIONS
 // /////////////////////////  ////////////////////////////////////////
 
-void motors_init(void (*callback)()) {
+void motors::init(void (*callback)()) {
 
   // Set pins mode
   
@@ -71,7 +71,7 @@ void motors_init(void (*callback)()) {
   mCallback = callback;
 }
 
-void motors_set(long x, long y, long z, long e0) {
+void motors::set(long x, long y, long z, long e0) {
 
   // Set motor bound on X
   if(x) {
@@ -121,7 +121,7 @@ void motors_set(long x, long y, long z, long e0) {
   mCallbackCalled = false;
 }
 
-void motors_run() {
+void motors::run() {
 
   if(!mStepX) digitalWrite(X_ENABLE_PIN, HIGH);
   else mStepX -= 1;
